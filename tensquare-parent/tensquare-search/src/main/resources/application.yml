@@ -1,0 +1,14 @@
+server: 
+  port: 9007
+spring: 
+  application:  
+    name: tensquare-search #指定服务名
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.41.131:9300
+      cluster-name: elasticsearch
+  datasource:
+    url: jdbc:mysql://localhost:3306/tensquare_base?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: 960879872chenwq
+    #driver-class-name: com.mysql.cj.jdbc.Driver

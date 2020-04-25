@@ -1,0 +1,23 @@
+server: 
+  port: 9009
+spring: 
+  application:  
+    name: tensquare-user #指定服务名
+  datasource:  
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tensquare_user?characterEncoding=UTF8
+    username: root
+    password: 960879872chenwq
+
+  redis:
+    host: 192.168.41.131
+  rabbitmq:
+    host: 192.168.41.131
+#mybatis
+mybatis:
+  type-aliases-package:  org.tensquare_user.pojo
+  mapper-locations: classpath:org.tensquare_user.mapper/*Mapper.xml
+  
+  
+  
+  
