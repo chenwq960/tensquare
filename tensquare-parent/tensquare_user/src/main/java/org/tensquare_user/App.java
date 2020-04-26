@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.tensquare.utils.IdWorker;
+import com.tensquare.utils.JwtUtils;
 
 /**
  * Hello world!
@@ -25,6 +26,11 @@ public class App {
     @Bean
     public BCryptPasswordEncoder bcryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public JwtUtils jwtUtils() {
+    	return new JwtUtils();
     }
 
 }

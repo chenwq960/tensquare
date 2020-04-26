@@ -18,4 +18,5 @@ public class MyWebConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		super.configure(http);
 	}
+	
 }

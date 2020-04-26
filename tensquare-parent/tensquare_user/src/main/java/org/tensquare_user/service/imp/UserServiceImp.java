@@ -42,8 +42,9 @@ public class UserServiceImp implements UserService{
 		user.setPassword(encode);
 		
 		String object = (String) redisTemplate.opsForValue().get(user.getMobile());
-		System.out.println(object+"redis  数据");
-		System.out.println(user.getEmail()+"数据库 传递");
+		System.out.println("从redis数据库中获取的验证码"+object);
+		System.out.println("用户数据的验证码是"+user.getEmail());
+		
 		if(user.getEmail().equals(object)) {
 			System.out.println("一致 可以登录");
 		}else {
@@ -61,14 +62,12 @@ public class UserServiceImp implements UserService{
 	public void sendMessage(String tel) {
 		//生成验证码
 		String random = UUID.randomUUID().toString();
+		System.out.println("key"+tel+"value"+random);
+		System.out.println(random+"--验证码是");
 		HashMap<String,String> hashMap = new HashMap<>();
 		hashMap.put("mobile",tel);
 		hashMap.put("code",random);
-		
-		
-		redisTemplate.opsForValue().set(tel,"");
-		Object object = redisTemplate.opsForValue().get(tel);
-		System.out.println(object);
+		redisTemplate.opsForValue().set(tel,random);
 		//同步到 mq 中
 		rabbitTemplate.convertAndSend("queue_02",hashMap);
 	}
@@ -76,8 +75,7 @@ public class UserServiceImp implements UserService{
 	 * 登录逻辑验证
 	 */
 	@Override
-	public int login(User user) {
-		System.out.println(user.toString());
+	public User login(User user) {
 		User model = userMapper.Login(user.getLoginname());
 		if(model != null) {
 			System.out.println(model+"------------");
@@ -86,9 +84,14 @@ public class UserServiceImp implements UserService{
 				System.out.println("密码不相等-----------");
 			}else {
 				System.out.println("密码相等");
+				return model;
 			}
 		}
-		return 0;
+		return model;
+	}
+	@Override
+	public void delte(String id) {
+		userMapper.deleteByPrimaryKey(id);
 	}
 }
 

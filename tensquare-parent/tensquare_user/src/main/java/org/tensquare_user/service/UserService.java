@@ -13,6 +13,9 @@ public interface UserService {
 
 	void sendMessage(String tel);
 
-	int login(User user);
+	User login(User user);
+
+	void delte(String id);
+
 
 }

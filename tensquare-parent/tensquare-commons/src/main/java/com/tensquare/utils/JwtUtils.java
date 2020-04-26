@@ -3,27 +3,26 @@ package com.tensquare.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@ConfigurationProperties("jwt.config")
+@Configuration
 public class JwtUtils {
-	private String key;
+	private String key = "chenwq";
 	
-	private String ttl;
-	
-	
-	public String createJwt(String id,String subject) {
+	public String createJwt(String id,String subject,String role) {
 		//创建当前的毫秒数
 //		long currentTimeMillis = System.currentTimeMillis();
-		JwtBuilder signWith = Jwts.builder().setId(id)//
+		JwtBuilder signWith = Jwts.builder()//
+		.setId(id)//
 		.setSubject(subject)//
+		.claim("role",role)		//成功之后 设置角色
 		.setIssuedAt(new Date())
-		.signWith(SignatureAlgorithm.ES256,key);
+		.signWith(SignatureAlgorithm.HS256,key);
 		
 		System.out.println(signWith.compact());
 		//生成的tocker return 出去

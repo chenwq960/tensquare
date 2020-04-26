@@ -3,7 +3,6 @@ package com.tensquare.search.controller;
 import javax.annotation.Resource;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +33,7 @@ public class AriticleController {
 	
 	@GetMapping(value = "search/{key}/{page}/{size}")
 	public PageResult<Article> findByTitleOrContent(@PathVariable String key,@PathVariable int page,@PathVariable int size){
-		PageRequest request = PageRequest.of(page-1,size);
+//		PageRequest request = PageRequest.of(page-1,size);
 //		Page<Article> pages = ariticleService.findByTitleOrContent(key, key, page, size);
 //		return new PageResult(pages.getTotalElements(),pages.getContent());
 		Page<Article> pages = ariticleService.findByTitleOrContent(key,key,page,size);
